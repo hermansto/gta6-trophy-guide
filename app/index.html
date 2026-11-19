@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Leonida Trophy Tracker — GTA VI PS5</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <div class="mark" aria-hidden="true">VI</div>
+      <div>
+        <h1>Leonida Trophy Tracker</h1>
+        <p>Grand Theft Auto VI · PlayStation 5 · 55 trophies · offline guide</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <label class="spoiler-toggle" title="Hide story trophy names and descriptions until earned">
+        <input type="checkbox" id="spoilerToggle">
+        <span>Spoiler shield</span>
+      </label>
+      <button id="exportBtn" class="btn" type="button">Export</button>
+      <button id="importBtn" class="btn" type="button">Import</button>
+      <input type="file" id="importFile" accept="application/json,.json" hidden>
+    </div>
+  </header>
+
+  <div id="spoilerBanner" class="banner" hidden>
+    Spoiler shield is ON. Story trophy names and descriptions stay hidden until you mark them earned.
+    Roadmap order and missable priorities remain visible.
+  </div>
+
+  <section class="progress-card" aria-label="Trophy progress">
+    <div class="progress-head">
+      <strong id="progressLabel">0/55 · platinum progress</strong>
+      <span id="progressPct">0%</span>
+    </div>
+    <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="55" aria-valuenow="0" id="progressBar">
+      <div id="progressFill"></div>
+    </div>
+    <div class="grade-counts" id="gradeCounts"></div>
+  </section>
+
+  <nav class="views" aria-label="Views">
+    <button id="checklistTab" class="tab active" type="button" aria-pressed="true">Checklist</button>
+    <button id="roadmapTab" class="tab" type="button" aria-pressed="false">Roadmap</button>
+  </nav>
+
+  <main>
+    <section id="checklistView">
+      <div class="toolbar">
+        <input id="search" type="search" placeholder="Search trophies, missions, guides…" autocomplete="off">
+        <div class="chips" id="kindChips" role="group" aria-label="Trophy filters">
+          <button class="chip active" type="button" data-filter="all" aria-pressed="true">All</button>
+          <button class="chip" type="button" data-filter="story" aria-pressed="false">Story</button>
+          <button class="chip" type="button" data-filter="missable" aria-pressed="false">Missable</button>
+          <button class="chip" type="button" data-filter="collectible" aria-pressed="false">Collectibles</button>
+          <button class="chip" type="button" data-filter="activity" aria-pressed="false">Activities</button>
+        </div>
+        <label class="select-label">Grade
+          <select id="gradeFilter">
+            <option value="all">All grades</option>
+            <option value="platinum">Platinum</option>
+            <option value="gold">Gold</option>
+            <option value="silver">Silver</option>
+            <option value="bronze">Bronze</option>
+          </select>
+        </label>
+        <label class="select-label">Sort
+          <select id="sortSelect">
+            <option value="stage">Roadmap stage</option>
+            <option value="name">Name</option>
+            <option value="grade">Grade</option>
+          </select>
+        </label>
+      </div>
+      <div class="split">
+        <div id="trophyList" class="list" role="list" aria-label="Trophy checklist"></div>
+        <aside id="detail" class="detail" aria-live="polite" aria-label="Trophy detail"></aside>
+      </div>
+    </section>
+
+    <section id="roadmapView" hidden>
+      <div class="roadmap-note">
+        <strong>Earn in this order.</strong>
+        Story chapters and mission checkpoints come first, then collectibles and exploration, then activities and challenges.
+        Red flags are conservative missable priorities derived from the official trophy descriptions.
+        Finish with 100% completion and the platinum award.
+      </div>
+      <div id="roadmapGroups" class="roadmap-groups"></div>
+    </section>
+  </main>
+
+  <footer>
+    Original fan-made tracker and guide. Not affiliated with Rockstar Games or PlayStation.
+    Official trophy names, descriptions, and grades are preserved verbatim; guide text is an original interpretation of those descriptions.
+    No network calls, no game artwork, no tracking.
+  </footer>
+  <div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
